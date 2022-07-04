@@ -7,7 +7,6 @@ use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Repos\PageRepo;
 use BookStack\Exceptions\PermissionsException;
-use Closure;
 use Exception;
 use Illuminate\Http\Request;
 
