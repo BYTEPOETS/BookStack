@@ -17,7 +17,7 @@ class SearchApiController extends ApiController
         'all' => [
             'query'  => ['required'],
             'page'   => ['integer', 'min:1'],
-            'count'  => ['integer', 'min:1', 'max:100'],
+            'count'  => ['integer', 'min:1', 'max:10000'],
         ],
     ];
 
