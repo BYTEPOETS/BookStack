@@ -7,7 +7,7 @@ use BookStack\Http\Controllers\Api\BookExportApiController;
 use BookStack\Http\Controllers\Api\BookshelfApiController;
 use BookStack\Http\Controllers\Api\ChapterApiController;
 use BookStack\Http\Controllers\Api\ChapterExportApiController;
-use BookStack\Http\Controllers\Api\FavoriteApiController;
+use BookStack\Http\Controllers\Api\FavouriteApiController;
 use BookStack\Http\Controllers\Api\PageApiController;
 use BookStack\Http\Controllers\Api\PageExportApiController;
 use BookStack\Http\Controllers\Api\ProfileApiController;
@@ -81,6 +81,6 @@ Route::put('recycle-bin/{deletionId}', [RecycleBinApiController::class, 'restore
 Route::delete('recycle-bin/{deletionId}', [RecycleBinApiController::class, 'destroy']);
 
 Route::get('user/profile', [ProfileApiController::class, 'profile']);
-Route::get('user/favourites', [FavoriteApiController::class, 'list']);
-Route::put('user/pages/{id}/favourite', [FavoriteApiController::class, 'updateFavourite']);
+Route::get('user/favourites', [FavouriteApiController::class, 'list']);
+Route::put('user/pages/{id}/favourite', [FavouriteApiController::class, 'updateFavourite']);
 Route::post('user/pages/{id}/add-view', [ProfileApiController::class, 'addPageView']);

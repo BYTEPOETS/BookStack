@@ -7,7 +7,7 @@ use BookStack\Entities\Queries\TopFavourites;
 use BookStack\Entities\Repos\PageRepo;
 use Illuminate\Http\Request;
 
-class FavoriteApiController extends ApiController
+class FavouriteApiController extends ApiController
 {
     protected PageRepo $pageRepo;
 
@@ -27,7 +27,9 @@ class FavoriteApiController extends ApiController
      */
     public function list()
     {
-        return ['data' => (new TopFavourites(['page']))->run(100, 0)];
+        $obj = (object)[];
+        $obj->data = (new TopFavourites(['page']))->run(100, 0)->values();
+        return $obj;
     }
 
     /**
