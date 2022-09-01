@@ -7,6 +7,14 @@ use Illuminate\Database\Query\JoinClause;
 
 class TopFavourites extends EntityQuery
 {
+
+    private $types;
+
+    public function __construct($types = ['page', 'chapter', 'book', 'bookshelf'])
+    {
+        $this->types = $types;
+    }
+
     public function run(int $count, int $skip = 0)
     {
         $user = user();
@@ -14,8 +22,24 @@ class TopFavourites extends EntityQuery
             return collect();
         }
 
+        $query = $this->getQuery();
+
+        return $query->with('favouritable')
+            ->skip($skip)
+            ->take($count)
+            ->get()
+            ->pluck('favouritable')
+            ->filter();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+     */
+    public function getQuery()
+    {
         $query = $this->permissionService()
             ->restrictEntityRelationQuery(Favourite::query(), 'favourites', 'favouritable_id', 'favouritable_type')
+            ->whereIn('favouritable_type', $this->types)
             ->select('favourites.*')
             ->leftJoin('views', function (JoinClause $join) {
                 $join->on('favourites.favouritable_id', '=', 'views.viewable_id');
@@ -24,12 +48,6 @@ class TopFavourites extends EntityQuery
             })
             ->orderBy('views.views', 'desc')
             ->where('favourites.user_id', '=', user()->id);
-
-        return $query->with('favouritable')
-            ->skip($skip)
-            ->take($count)
-            ->get()
-            ->pluck('favouritable')
-            ->filter();
+        return $query;
     }
 }
