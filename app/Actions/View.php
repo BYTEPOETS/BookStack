@@ -2,6 +2,7 @@
 
 namespace BookStack\Actions;
 
+use BookStack\Auth\User;
 use BookStack\Interfaces\Viewable;
 use BookStack\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -33,7 +34,11 @@ class View extends Model
      */
     public static function incrementFor(Viewable $viewable): int
     {
-        $user = user();
+        return self::incrementForUser($viewable, user());
+    }
+
+    public static function incrementForUser(Viewable $viewable, User $user): int
+    {
         if (is_null($user) || $user->isDefault()) {
             return 0;
         }
