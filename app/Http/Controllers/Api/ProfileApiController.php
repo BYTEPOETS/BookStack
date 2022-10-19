@@ -46,7 +46,7 @@ class ProfileApiController extends ApiController
             'name' => $user->name,
             'slug' => $user->slug,
             'roles' => array_map(function ($array_item) {
-                return $array_item->system_name;
+                return $array_item->display_name;
             }, $user->roles->all()),
             'permissions' => $permissions,
         ];
