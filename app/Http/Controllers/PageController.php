@@ -213,6 +213,12 @@ class PageController extends Controller
 
         $this->pageRepo->update($page, $request->all());
 
+        /** reset views if 'new' tag is set */
+        $tags = $request->get('tags');
+        if (in_array('new', array_column($tags, 'name'))) {
+            View::deleteFor($page);
+        }
+
         return redirect($page->getUrl());
     }
 

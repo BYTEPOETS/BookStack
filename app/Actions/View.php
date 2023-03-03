@@ -53,6 +53,11 @@ class View extends Model
         return $view->views;
     }
 
+    public static function deleteFor(Viewable $viewable)
+    {
+        $viewable->views()->delete();
+    }
+
     /**
      * Clear all views from the system.
      */
